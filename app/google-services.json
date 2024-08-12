@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "657168027886",
+    "project_id": "layoutcheck-fb22f",
+    "storage_bucket": "layoutcheck-fb22f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:657168027886:android:97c547884bee6e952b23ff",
+        "android_client_info": {
+          "package_name": "com.example.layoutcheck"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBg5DLdi3Py7vecRvdHwBI_yelyGE2ihAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
