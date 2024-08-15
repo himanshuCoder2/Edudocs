@@ -35,7 +35,7 @@
 
         <ProgressBar
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="241dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:max="100"
             android:id="@+id/text2"
