@@ -33,6 +33,17 @@
             android:textSize="35sp"
             android:textStyle="bold" />
 
+        <ProgressBar
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="241dp"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:id="@+id/text2"
+            android:layout_gravity="center_horizontal"
+            android:outlineSpotShadowColor="@color/white"
+            android:padding="1dp"
+            android:progress="50" />
+
         <TextView
 
             android:layout_width="wrap_content"
