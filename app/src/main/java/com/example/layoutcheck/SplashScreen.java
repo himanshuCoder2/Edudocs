@@ -14,41 +14,40 @@ import androidx.core.view.WindowInsetsCompat;
 public class SplashScreen extends AppCompatActivity {
 
     private ProgressBar progressBar;
-    private int progressValue = 0;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_splash_screen);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
         progressBar = findViewById(R.id.progressBar);
-        progressBar.setMax(100); // Set the maximum progress value
+        handler = new Handler();
 
-        //  progress update it will run progress bar next then open new activity
-        new Handler().postDelayed(new Runnable() {
+        // Start the progress bar animation
+        progressBar.setProgress(0);
+        progressBar.setMax(100);
+        new Thread(new Runnable() {
             @Override
             public void run() {
-                updateProgress();
+                for (int i = 0; i <= 100; i++) {
+                    progressBar.setProgress(i);
+                    try {
+                        Thread.sleep(20); // adjust the sleep time to control the animation speed
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                // Navigate to the next page after 2 seconds
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }, 2000);
             }
-        }, 1000); // Delay for demonstration purposes
-    }
-
-    private void updateProgress() {
-        if (progressValue < 100) {
-            progressValue += 10; // Increment progress value
-            progressBar.setProgress(progressValue);
-            // Call this method again after a delay (e.g., every second)
-            new Handler().postDelayed(this::updateProgress, 1000);
-        } else {
-            // Progress complete, navigate to the  MainActivity class
-            startActivity(new Intent(SplashScreen.this, MainActivity.class));
-            finish();
-        }
+        }).start();
     }
 }

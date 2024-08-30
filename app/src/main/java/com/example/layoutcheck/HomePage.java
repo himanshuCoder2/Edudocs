@@ -1,66 +1,36 @@
 package com.example.layoutcheck;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.LinearLayout;
 
-import androidx.activity.EdgeToEdge;
+import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomePage extends AppCompatActivity {
-LinearLayout home,notes,documents,profile;
+
+    private RecyclerView recyclerView;
+    private UtilityAdapter utilityAdapter;
+    private List<UtilityItem> utilityItemList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home_page);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
-        home=findViewById(R.id.tab_home);
-        notes=findViewById(R.id.tab_notes);
-        documents=findViewById(R.id.tab_documents);
-        profile=findViewById(R.id.tab_profile);
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomePage.this, HomePage.class);
-                startActivity(intent);
-            }
-        });
+        recyclerView = findViewById(R.id.recyclerViewUtilities);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3)); // 3 columns
 
+        utilityItemList = new ArrayList<>();
+        utilityItemList.add(new UtilityItem(R.drawable.home, "True ID - vCard"));
+        utilityItemList.add(new UtilityItem(R.drawable.menu, "Scan QR"));
+        utilityItemList.add(new UtilityItem(R.drawable.doc, "Drive"));
+        utilityItemList.add(new UtilityItem(R.drawable.notes, "My Consent"));
+        utilityItemList.add(new UtilityItem(R.drawable.profile, "Nominee"));
+        utilityItemList.add(new UtilityItem(R.drawable.home, "My Activity"));
 
-        notes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomePage.this, Notes.class);
-                startActivity(intent);
-            }
-        });
-
-        documents.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomePage.this, S_Documents.class);
-                startActivity(intent);
-            }
-        });
-
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomePage.this, S_Profile.class);
-                startActivity(intent);
-            }
-        });
-
-
+        utilityAdapter = new UtilityAdapter(utilityItemList);
+        recyclerView.setAdapter(utilityAdapter);
     }
 }
